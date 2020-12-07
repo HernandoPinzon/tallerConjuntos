@@ -46,10 +46,11 @@ public class IOConjuntos {
         ArrayList<String> elementos = new ArrayList();
         JSONParser jsonParser = new JSONParser();
         FileReader reader;
+        JSONArray elementosJSON = null;
         try {
             reader = new FileReader(archivo);
             Object obj = jsonParser.parse(reader);
-            JSONArray elementosJSON = (JSONArray) obj;//excepcion de casteo
+            elementosJSON = (JSONArray) obj;//excepcion de casteo
             for (int i = 0; i < elementosJSON.size(); i++) {
                 elementos.add(elementosJSON.get(i).toString());
             }
@@ -64,13 +65,19 @@ public class IOConjuntos {
             throw e;
         }
 
-        for (Object elemento : elementos) {
+        for (int i = 0; i < elementosJSON.size(); i++) {
             try {
-                JSONObject b = (JSONObject) elemento;
+                JSONObject b = (JSONObject) elementosJSON.get(i);
                 ArchivoJSONInvalido e = new ArchivoJSONInvalido("Este archivo JSON contiene\nObjetos no elementos de un \nconjunto");
                 throw e;
             } catch (ClassCastException ex) {
-                System.out.println("funciono");
+                try {
+                    JSONArray b = (JSONArray) elementosJSON.get(i);
+                    ArchivoJSONInvalido e = new ArchivoJSONInvalido("Este archivo JSON contiene\nArreglos no elementos de un \nconjunto");
+                    throw e;
+                } catch (ClassCastException ez){
+                    System.out.println("todo ok");
+                }
             }
             
         }
