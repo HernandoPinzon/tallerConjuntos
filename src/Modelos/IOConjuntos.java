@@ -36,7 +36,7 @@ public class IOConjuntos {
         String extencionArchivo = archivo.getAbsolutePath();
         int a = extencionArchivo.indexOf(".");
         extencionArchivo = extencionArchivo.substring(a + 1/*extencionArchivo.length()-4*/, extencionArchivo.length());
-        System.out.println(extencionArchivo);
+        
         if (!extencionArchivo.equals("json")) {
             String message = "La extencion de archivo [" + extencionArchivo + "] \nno es valida.\nSolo se admiten archivos\ncon extencion JSON";
             System.out.println("mal");
@@ -76,7 +76,6 @@ public class IOConjuntos {
                     ArchivoJSONInvalido e = new ArchivoJSONInvalido("Este archivo JSON contiene\nArreglos no elementos de un \nconjunto");
                     throw e;
                 } catch (ClassCastException ez){
-                    System.out.println("todo ok");
                 }
             }
             

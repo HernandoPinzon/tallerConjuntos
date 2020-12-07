@@ -288,7 +288,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int seleccion = fc.showOpenDialog(this);
 
         if (seleccion == JFileChooser.APPROVE_OPTION) {
-            System.out.println("aaaaa");
             File archivo = fc.getSelectedFile();
             try {
                 calculadora.setConjuntoA(archivo);
@@ -327,13 +326,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JChooser2ActionPerformed
 
     private void jFileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileSaveActionPerformed
-        JSONArray elementos = new JSONArray();
-        elementos.add(1);
-        elementos.add(2);
-        elementos.add(3);
-        elementos.add(4);
-        //jTextoFichero3.setText(elementos.toJSONString());
-
         JFileChooser guardar = new JFileChooser();
         guardar.showSaveDialog(this);
         guardar.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
