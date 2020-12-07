@@ -5,6 +5,7 @@
  */
 package Modelos;
 
+import Excepciones.ArchivoJSONInvalido;
 import Excepciones.ExtencionDeArchivoInvalida;
 import Excepciones.OperacionInvalida;
 import java.io.File;
@@ -135,7 +136,7 @@ public class CalculadoraConjuntos {
     /**
      * @param conjuntoA the conjuntoA to set
      */
-    public void setConjuntoA(File archivo) throws FileNotFoundException, ExtencionDeArchivoInvalida {
+    public void setConjuntoA(File archivo) throws FileNotFoundException, ExtencionDeArchivoInvalida, ArchivoJSONInvalido {
 
         this.conjuntoA = ioConjuntos.leerConjuntoJSON(archivo);;
     }
@@ -143,7 +144,7 @@ public class CalculadoraConjuntos {
     /**
      * @param conjuntoB the conjuntoB to set
      */
-    public void setConjuntoB(File archivo) throws FileNotFoundException, ExtencionDeArchivoInvalida {
+    public void setConjuntoB(File archivo) throws FileNotFoundException, ExtencionDeArchivoInvalida, ArchivoJSONInvalido {
 
         this.conjuntoB = ioConjuntos.leerConjuntoJSON(archivo);;
     }

@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Excepciones.ArchivoJSONInvalido;
 import Excepciones.ExtencionDeArchivoInvalida;
 import Excepciones.OperacionInvalida;
 import Modelos.CalculadoraConjuntos;
@@ -296,6 +297,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jTextoFichero1.setText("no se encontro el archivo");
             } catch (ExtencionDeArchivoInvalida ex) {
                 jTextoFichero1.setText(ex.getMessage());
+            } catch (ArchivoJSONInvalido ex) {
+                jTextoFichero1.setText(ex.getMessage());
             }
             
         }
@@ -315,8 +318,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ExtencionDeArchivoInvalida ex) {
                 jTextoFichero2.setText(ex.getMessage());
+            } catch (ArchivoJSONInvalido ex) {
+                jTextoFichero2.setText(ex.getMessage());
             }
-            
+
         }
         
     }//GEN-LAST:event_JChooser2ActionPerformed

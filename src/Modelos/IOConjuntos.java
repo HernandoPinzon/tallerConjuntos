@@ -5,6 +5,7 @@
  */
 package Modelos;
 
+import Excepciones.ArchivoJSONInvalido;
 import Excepciones.ExtencionDeArchivoInvalida;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -28,13 +30,15 @@ public class IOConjuntos {
     public IOConjuntos() {
     }
 
-    public Conjunto leerConjuntoJSON(File archivo) throws ExtencionDeArchivoInvalida {
+    public Conjunto leerConjuntoJSON(File archivo)
+            throws ExtencionDeArchivoInvalida, ArchivoJSONInvalido
+    {
         String extencionArchivo = archivo.getAbsolutePath();
         int a = extencionArchivo.indexOf(".");
-        extencionArchivo = extencionArchivo.substring(a+1/*extencionArchivo.length()-4*/, extencionArchivo.length());
+        extencionArchivo = extencionArchivo.substring(a + 1/*extencionArchivo.length()-4*/, extencionArchivo.length());
         System.out.println(extencionArchivo);
-        if(!extencionArchivo.equals("json")){
-            String message = "La extencion de archivo ["+extencionArchivo+"] \nno es valida.\nSolo se admiten archivos\ncon extencion JSON";
+        if (!extencionArchivo.equals("json")) {
+            String message = "La extencion de archivo [" + extencionArchivo + "] \nno es valida.\nSolo se admiten archivos\ncon extencion JSON";
             System.out.println("mal");
             ExtencionDeArchivoInvalida e = new ExtencionDeArchivoInvalida(message);
             throw e;
@@ -45,16 +49,30 @@ public class IOConjuntos {
         try {
             reader = new FileReader(archivo);
             Object obj = jsonParser.parse(reader);
-            JSONArray elementosJSON = (JSONArray) obj;
-            //System.out.println(elementosJSON); // Este es el objeto JSON recuperado
+            JSONArray elementosJSON = (JSONArray) obj;//excepcion de casteo
             for (int i = 0; i < elementosJSON.size(); i++) {
                 elementos.add(elementosJSON.get(i).toString());
             }
         } catch (FileNotFoundException ex) {
+            System.out.println("no se encontro el archivo");
         } catch (IOException ex) {
-            Logger.getLogger(IOConjuntos.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("io exception");
         } catch (ParseException ex) {
-            Logger.getLogger(IOConjuntos.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("JSONparser exception");
+        } catch (ClassCastException ex){
+            ArchivoJSONInvalido e = new ArchivoJSONInvalido("\"El archivoo JSON \nseleccionado no es un \nconjunto con una lista de \nelementos");
+            throw e;
+        }
+
+        for (Object elemento : elementos) {
+            try {
+                JSONObject b = (JSONObject) elemento;
+                ArchivoJSONInvalido e = new ArchivoJSONInvalido("Este archivo JSON contiene\nObjetos no elementos de un \nconjunto");
+                throw e;
+            } catch (ClassCastException ex) {
+                System.out.println("funciono");
+            }
+            
         }
         return new Conjunto(elementos);
     }
