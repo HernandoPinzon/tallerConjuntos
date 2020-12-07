@@ -60,6 +60,8 @@ public class IOConjuntos {
             System.out.println("io exception");
         } catch (ParseException ex) {
             System.out.println("JSONparser exception");
+            ArchivoJSONInvalido e = new ArchivoJSONInvalido("\"El archivoo JSON \nseleccionado no tiene \nun formato correcto");
+            throw e;
         } catch (ClassCastException ex){
             ArchivoJSONInvalido e = new ArchivoJSONInvalido("\"El archivoo JSON \nseleccionado no es un \nconjunto con una lista de \nelementos");
             throw e;

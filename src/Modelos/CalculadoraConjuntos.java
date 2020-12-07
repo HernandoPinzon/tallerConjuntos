@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class CalculadoraConjuntos {
 
-    IOConjuntos ioConjuntos;
+    private IOConjuntos ioConjuntos;
     private Conjunto conjuntoA;
     private Conjunto conjuntoB;
     private Conjunto conjuntoC;
